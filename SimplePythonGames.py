@@ -8,7 +8,19 @@ def TasKağıtMakas():
 
     while not(KullanıcıSkoru >= 3 or BilgisyarSkoru >= 3):
         BilgisayarSeçimi = choice(["Taş","Kağıt","Makas"]).lower()
-        KullanıcıSeçimi = input("Taş mı Kağıt mı Makas mı? ").lower()
+        
+        while True:
+            KullanıcıSeçimi = input("Taş mı Kağıt mı Makas mı? (Oyundan Çıkmak İçin 0' Basınız)").lower()
+
+            geçerli_seçimler = ["taş", "kağıt", "makas", "0"]
+            if KullanıcıSeçimi in geçerli_seçimler:
+                break
+            else:
+                print("Geçersiz girdi, tekrar deneyiniz.")
+
+
+        if KullanıcıSeçimi == "0":
+            break
 
         print(f"Bilgisayarın Seçimi: {BilgisayarSeçimi}")
 
@@ -38,21 +50,31 @@ def TasKağıtMakas():
 
 
 def SayıTahminOyunu():
-    BilgisayarSayısı = randint(0,100)
-    DenemeSayısı = 1
+    BilgisayarSayısı = randint(1,100)
+    DenemeSayısı = 0
     KullanıcıTahmini = None
 
 
     while not(KullanıcıTahmini == BilgisayarSayısı):
-        KullanıcıTahmini = int(input("Lütfen Tahmininizi Giriniz."))
+        DenemeSayısı += 1
         print(f"{DenemeSayısı}. Denemeniz")
+
+        while True:
+            KullanıcıTahmini = int(input("Lütfen Tahmininizi Giriniz.(Oyundan Çıkmak İçin 0' Basınız)"))
+            geçerli_seçimler = list(range(101))
+            if KullanıcıTahmini in geçerli_seçimler:
+                break
+            else:
+                print("Geçersiz girdi, tekrar deneyiniz.")
+
+        if KullanıcıTahmini == 0:
+            break
+        
 
         if KullanıcıTahmini > BilgisayarSayısı:
             print("Azaltın")
-            DenemeSayısı += 1
         elif KullanıcıTahmini < BilgisayarSayısı:
             print("Arttırın")
-            DenemeSayısı += 1
         else:
             print(f"Tebrikler. {DenemeSayısı}. deneme de buldunuz.")
 
@@ -68,7 +90,7 @@ def KelimeKarıştırmaca(ZorlukSeviyesi):
         SeçilenKelime = choice(medium_words)
     elif ZorlukSeviyesi == 7:
         hard_words = ["freedom", "justice", "respect", "courage", "honesty","backpack", "picture", "teacher", "notebook", "holiday","library", "deserts", "animals", "emotion", "support"]
-        SeçilenKelime = choice(medium_words)
+        SeçilenKelime = choice(hard_words)
 
     HarfList = list(SeçilenKelime)
     shuffle(HarfList)
@@ -78,7 +100,10 @@ def KelimeKarıştırmaca(ZorlukSeviyesi):
 
     while not(KelimeDenemeSayısı == 3):
         KelimeDenemeSayısı +=1
-        YourGuess = input("Your guess:")
+        YourGuess = input("Your guess: (Oyundan Çıkmak İçin 0' Basınız)").lower()
+
+        if YourGuess == "0":
+            break
 
         if SeçilenKelime == YourGuess:
             print(f"{KelimeDenemeSayısı}. Denemede Buldunuz. Tebrikler")
@@ -91,23 +116,55 @@ def KelimeKarıştırmaca(ZorlukSeviyesi):
 
 
 
+OyunSeçimi = None
+while not(OyunSeçimi == 4):
+    print("Zeka Küpü - Mini Oyunlar")
+    print("1 -> Taş Kağıt Makas")
+    print("2 -> Sayı Tahmin Oyunu")
+    print("3 -> Kelime Karıştırmaca")
+    print("4 -> Çıkış")
+
+    OyunSeçimi = int(input("Seçiminiz: "))
 
 
-print("Zeka Küpü - Mini Oyunlar")
-print("1 -> Taş Kağıt Makas")
-print("2 -> Sayı Tahmin Oyunu")
-print("3 -> Kelime Karıştırmaca")
-print("4 -> Çıkış")
-OyunSeçimi = int(input("Seçiminiz: "))
+    if OyunSeçimi == 1:
+        print("Taş Kağıt Makas Oyununa Hoş Geldiniz")
+        while True:
+            TasKağıtMakas()
+            Karar =int(input("Bir daha oynamak için 1'e Ana Menüye Dönem İçin 2'ye basınız"))
+            if Karar == 1:
+                continue
+            elif Karar == 2:
+                break
 
 
-if OyunSeçimi == 1:
-    print("Taş Kağıt Makas Oyununa Hoş Geldiniz")
-    TasKağıtMakas()
-elif OyunSeçimi == 2:
-    print("Sayı Tahmin Oyununa Hoş Geldiniz")
-    SayıTahminOyunu()
-elif OyunSeçimi == 3:
-    print("Kelime Karıştırıcya HoşGeldiniz")
-    ZorlukSeviyesi = int(input("Lütfen Zorluk Seviyesini Giriniz"))
-    KelimeKarıştırmaca(ZorlukSeviyesi)
+    elif OyunSeçimi == 2:
+        print("Sayı Tahmin Oyununa Hoş Geldiniz. 1 ile 100 Arasında Bir Sayı Tutunuz")
+        while True:
+            SayıTahminOyunu()
+            Karar =int(input("Bir daha oynamak için 1'e Ana Menüye Dönem İçin 2'ye basınız"))
+            if Karar == 1:
+                continue
+            elif Karar == 2:
+                break
+
+    elif OyunSeçimi == 3:
+        print("Kelime Karıştırıcya HoşGeldiniz")
+        while True:
+            while True:
+                ZorlukSeviyesi = int(input("Lütfen Zorluk Seviyesini Giriniz(5 ile 7 arasında)"))
+                geçerli_seçimler = [5,6,7]
+                if ZorlukSeviyesi in geçerli_seçimler:
+                    break  
+                else:
+                    print("Geçersiz girdi, tekrar deneyiniz.")
+
+            KelimeKarıştırmaca(ZorlukSeviyesi)
+            Karar =int(input("Bir daha oynamak için 1'e Ana Menüye Dönem İçin 2'ye basınız"))
+            if Karar == 1:
+                continue
+            elif Karar == 2:
+                break
+
+print("Programımızı Kullandığınız için teşekkürler. İyi Günler Dileriz :)")
+
