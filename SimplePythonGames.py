@@ -1,5 +1,6 @@
 from random import choice
 from random import randint
+from random import shuffle
 
 def TasKağıtMakas():
     KullanıcıSkoru = 0
@@ -56,6 +57,41 @@ def SayıTahminOyunu():
             print(f"Tebrikler. {DenemeSayısı}. deneme de buldunuz.")
 
 
+def KelimeKarıştırmaca(ZorlukSeviyesi):
+    KelimeDenemeSayısı = 0
+
+    if ZorlukSeviyesi == 5:
+        easy_words = ["apple", "grape", "lemon", "table", "chair","piano", "heart", "bread", "smile", "house","plant", "stone", "water", "light", "river"]
+        SeçilenKelime = choice(easy_words)
+    elif ZorlukSeviyesi == 6:
+        medium_words = ["banana", "window", "marker", "pencil", "rocket","planet", "father", "mother", "friend", "screen","summer", "winter", "forest", "laptop", "galaxy"]
+        SeçilenKelime = choice(medium_words)
+    elif ZorlukSeviyesi == 7:
+        hard_words = ["freedom", "justice", "respect", "courage", "honesty","backpack", "picture", "teacher", "notebook", "holiday","library", "deserts", "animals", "emotion", "support"]
+        SeçilenKelime = choice(medium_words)
+
+    HarfList = list(SeçilenKelime)
+    shuffle(HarfList)
+    KarışıkKelime = ''.join(HarfList)
+
+    print(f"Scrambled word: {KarışıkKelime}")
+
+    while not(KelimeDenemeSayısı == 3):
+        KelimeDenemeSayısı +=1
+        YourGuess = input("Your guess:")
+
+        if SeçilenKelime == YourGuess:
+            print(f"{KelimeDenemeSayısı}. Denemede Buldunuz. Tebrikler")
+            break
+        else:
+            print(f"Incorrect. Please tr again ({3-KelimeDenemeSayısı} Hakkınız kaldı)")
+    else:
+        print("Başarısız oldunuz. üzgünüm")
+        
+
+
+
+
 
 print("Zeka Küpü - Mini Oyunlar")
 print("1 -> Taş Kağıt Makas")
@@ -71,3 +107,7 @@ if OyunSeçimi == 1:
 elif OyunSeçimi == 2:
     print("Sayı Tahmin Oyununa Hoş Geldiniz")
     SayıTahminOyunu()
+elif OyunSeçimi == 3:
+    print("Kelime Karıştırıcya HoşGeldiniz")
+    ZorlukSeviyesi = int(input("Lütfen Zorluk Seviyesini Giriniz"))
+    KelimeKarıştırmaca(ZorlukSeviyesi)
