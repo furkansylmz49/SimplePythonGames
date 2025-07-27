@@ -1,0 +1,6 @@
+print("Zeka Küpü - Mini Oyunlar")
+print("1 -> Taş Kağıt Makas")
+print("2 -> Sayı Tahmin Oyunu")
+print("3 -> Kelime Karıştırmaca")
+print("4 -> Çıkış")
+OyunSeçimi = int(input("Seçiminiz: "))
